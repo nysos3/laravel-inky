@@ -24,14 +24,15 @@ class InkyCompilerEngine extends CompilerEngine
 
         $crawler = new Crawler();
         $crawler->addHtmlContent($results);
-        
+
         $stylesheets = $crawler->filter('link[rel=stylesheet]');
 
         // collect hrefs
         $stylesheetsHrefs = collect($stylesheets->extract('href'));
 
         // remove links
-        $stylesheets->each(function (Crawler $crawler) {;
+        $stylesheets->each(function (Crawler $crawler) {
+            ;
             foreach ($crawler as $node) {
                 $node->parentNode->removeChild($node);
             }
@@ -49,7 +50,7 @@ class InkyCompilerEngine extends CompilerEngine
         $inliner = new CssToInlineStyles();
         return $inliner->convert($results, $styles);
     }
-    
+
     public function getFiles()
     {
         return $this->files;

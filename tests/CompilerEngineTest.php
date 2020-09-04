@@ -13,50 +13,50 @@ class CompilerEngineTest extends AbstractTestCase
     {
         $engine = $this->getEngine();
         $path = __DIR__.'/stubs/test';
-        
+
         $engine->getCompiler()->shouldReceive('isExpired')->once()
             ->with($path)->andReturn(false);
-            
+
         $engine->getCompiler()->shouldReceive('getCompiledPath')->once()
             ->with($path)->andReturn($path);
-        
+
         $this->assertContains('<p>testy</p>', $engine->get($path));
     }
-    
+
     public function testCssInline()
     {
         $engine = $this->getEngine();
         $path = __DIR__.'/stubs/inline';
-        
+
         $engine->getCompiler()->shouldReceive('isExpired')->once()
             ->with($path)->andReturn(false);
-            
+
         $engine->getCompiler()->shouldReceive('getCompiledPath')->once()
             ->with($path)->andReturn($path);
-        
+
         $engine->getFiles()->shouldReceive('get')->once()
             ->with(resource_path('assets/css/test'))
             ->andReturn('body {color:red;}');
-        
+
         $html = $engine->get($path);
-        
+
         $this->assertContains('<body style="color: red;">', $html);
         $this->assertNotContains('<link rel="stylesheet"', $html);
     }
-    
+
     public function testStyleInline()
     {
         $engine = $this->getEngine();
         $path = __DIR__.'/stubs/inlinestyle';
-        
+
         $engine->getCompiler()->shouldReceive('isExpired')->once()
             ->with($path)->andReturn(false);
-            
+
         $engine->getCompiler()->shouldReceive('getCompiledPath')->once()
             ->with($path)->andReturn($path);
-        
+
         $html = $engine->get($path);
-            
+
         $this->assertContains('<body style="color: blue;">', $html);
         $this->assertNotContains('<script', $html);
     }
@@ -81,8 +81,7 @@ class CompilerEngineTest extends AbstractTestCase
     {
         $compiler = Mockery::mock(CompilerInterface::class);
         $files = Mockery::mock(Filesystem::class);
-        
+
         return new InkyCompilerEngine($compiler, $files);
     }
-    
 }

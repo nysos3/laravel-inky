@@ -9,5 +9,4 @@ use Petecoop\LaravelInky\InkyCompilerEngine;
 class ServiceProviderTest extends AbstractTestCase
 {
     use ServiceProviderTrait;
-    
 }

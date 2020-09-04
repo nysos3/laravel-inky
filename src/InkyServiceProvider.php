@@ -25,10 +25,10 @@ class InkyServiceProvider extends ServiceProvider
     {
         $app = $this->app;
         $resolver = $app['view.engine.resolver'];
-        
+
         $app->singleton('inky.compiler', function ($app) {
             $cache = $app['config']['view.compiled'];
-            
+
             return new InkyCompiler($app['blade.compiler'], $app['files'], $cache);
         });
 
@@ -36,10 +36,9 @@ class InkyServiceProvider extends ServiceProvider
             return new InkyCompilerEngine($app['inky.compiler'], $app['files']);
         });
     }
-    
+
     protected function registerExtension()
     {
         $this->app['view']->addExtension('inky.php', 'inky');
     }
-
 }
