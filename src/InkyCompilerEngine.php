@@ -28,7 +28,7 @@ class InkyCompilerEngine extends CompilerEngine
         $stylesheets = $crawler->filter('link[rel=stylesheet]');
 
         // collect hrefs
-        $stylesheetsHrefs = collect($stylesheets->extract('href'));
+        $stylesheetsHrefs = collect($stylesheets->extract(['href']));
 
         // remove links
         $stylesheets->each(function (Crawler $crawler) {
